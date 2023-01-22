@@ -13,7 +13,14 @@ jobs:
           node-version: "18.x"
       - uses: actions/checkout
         name: Checkout
-      - uses: ./.github/workflows/build.yml
-        name: build
-      - uses: /.github/workflows/deploy.yml
-        name: deploy
+      - run: echo "build started"
+      - run: npm i
+      - run: echo "dependency install completed"
+      - name: deploy to aws
+        run: |
+          echo "Configuring serverless"
+          serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY }}--secret ${{ secrets.AWS_KEY_SECRET }}
+      - run: echo "deploying using serverless."
+      - run: |
+          sls deploy --force
+          echo "deployment completed successsfully"
