@@ -11,5 +11,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18.x"
-      - uses: build.yml
-      - uses: deploy.yml
+      - uses: actions/checkout@v1
+        name: checkout
+      - uses: ./.github/workflows/build.yml
+        name: build
+      - uses: /.github/workflows/deploy.yml
+        name: deploy

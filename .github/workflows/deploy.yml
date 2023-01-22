@@ -7,7 +7,7 @@ jobs:
     name: Deploy the app
     runs-on: ubuntu-latest
     steps:
-      - name: deploy
+      - name: deploy to aws
         run: |
           echo "Configuring serverless"
           serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY }}--secret ${{ secrets.AWS_KEY_SECRET }}
