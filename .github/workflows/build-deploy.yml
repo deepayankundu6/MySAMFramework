@@ -14,6 +14,7 @@ jobs:
           node-version: 16
       - run: echo "build started"
       - run: npm i
+      - run: npm i serverless@3 -g
       - run: echo "dependency install completed"
       - name: deploy to aws
         run: |
