@@ -1,0 +1,17 @@
+name: deploy
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    name: Deploy the app
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        run: |
+          echo "Configuring serverless"
+          serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY }}--secret ${{ secrets.AWS_KEY_SECRET }}
+      - run: echo "deploying using serverless."
+      - run: |
+          sls deploy --force
+          echo "deployment completed successsfully"
