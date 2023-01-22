@@ -11,8 +11,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18.x"
-      - uses: actions/checkout
-        name: Checkout
       - run: echo "build started"
       - run: npm i
       - run: echo "dependency install completed"
