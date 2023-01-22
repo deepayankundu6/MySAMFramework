@@ -8,9 +8,10 @@ jobs:
   workflow:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: "18.x"
+          node-version: 16
       - run: echo "build started"
       - run: npm i
       - run: echo "dependency install completed"
