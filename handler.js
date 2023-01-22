@@ -35,21 +35,34 @@ module.exports.hello = async (event) => {
         2
       ),
     };
-  } catch {
-    (err) => {
-      console.log("Some error occured during execution: ", err);
-      return {
-        statusCode: 500,
-        body: JSON.stringify(
-          {
-            message: "Some error occured while executing the lambda. Please check the cloud watch log!!!",
-            input: event,
-          },
-          null,
-          2
-        ),
-      }
+  } catch (err) {
+
+    console.log("Some error occured during execution: ", err);
+    let sns = awsSdk.SNS();
+    let snsParams = {
+      TopicArn: process.env.topicArn,
+      Message: `Hey your lambda has encountered an error on: ${new Date().toISOString()} please check the logs for the error details and cascade to toher if required <br>
+        <b> Error details: <br>
+        Error: ${err} <br>
+        Occured On: ${new Date().toISOString()} <br>
+        Lambda Name: ${process.env.App_Name}< br>
+        Thanks & Regards <br>
+        ABC app automation alert`,
+      Subject: `Lambda ${process.env.App_Name} encountered an error on ${new Date().toISOString()} `
     }
 
+    await sns.publish(snsParams).promise();
+
+    return {
+      statusCode: 500,
+      body: JSON.stringify(
+        {
+          message: "Some error occured while executing the lambda. Please check the cloud watch log!!!",
+          input: event,
+        },
+        null,
+        2
+      ),
+    }
   }
 };

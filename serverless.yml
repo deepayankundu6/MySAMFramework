@@ -14,6 +14,7 @@ plugins:
 custom:
   App_Name: my-function
   TopicName: failureTopic
+  Email: deepayankundu6@gmail.com
 
   prune:
     automatic: true
@@ -21,6 +22,9 @@ custom:
 
   environment:
     topicname: ${self:custom.TopicName}
+    topicArn: arn:aws:sns:${aws:region}:${aws:accountId}:${self:custom.TopicName}
+    topicEmail: ${self:custom.Email}
+    lambdaName: ${self:custom.App_Name}
 
   webpack:
     webpackConfig: webpack.config.js

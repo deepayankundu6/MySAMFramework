@@ -3,7 +3,7 @@ Resources:
     Type: AWS::SNS::Topic
     Properties:
       Subscription:
-        - Endpoint: deepayankundu6@gmail.com
+        - Endpoint: ${self:custom.Email}
           Protocol: "email"
       TopicName: ${self:custom.TopicName}
 
