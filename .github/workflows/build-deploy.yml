@@ -8,6 +8,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "18.x"
+      - run: cd ../
       - run: echo "build started"
       - run: npm i
       - run: echo " dependency install completed"
