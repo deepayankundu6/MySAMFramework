@@ -20,12 +20,6 @@ custom:
     automatic: true
     number: 5
 
-  environment:
-    topicname: ${self:custom.TopicName}
-    topicArn: arn:aws:sns:${aws:region}:${aws:accountId}:${self:custom.TopicName}
-    topicEmail: ${self:custom.Email}
-    lambdaName: ${self:custom.App_Name}
-
   webpack:
     webpackConfig: webpack.config.js
     includeModules: true
@@ -38,8 +32,13 @@ provider:
   tags:
     MyTag: Deep-Exp
   region: ap-south-1
+
   environment:
     MyEnv: "Deepayan Kundu"
+    topicname: ${self:custom.TopicName}
+    topicArn: arn:aws:sns:${aws:region}:${aws:accountId}:${self:custom.TopicName}
+    topicEmail: ${self:custom.Email}
+    lambdaName: ${self:custom.App_Name}
 
 package:
   individually: false
