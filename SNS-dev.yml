@@ -1,0 +1,42 @@
+Resources:
+  SNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+        - Endpoint: "deepayankundu6@gmail.com"
+          Protocol: "email"
+      TopicName: ${self:custom.TopicName}
+
+  # TopicPolicy:
+  #   Type: AWS::SNS::TopicPolicy
+  #   Properties:
+  #     PolicyDocument:
+  #       Statement:
+  #         - Effect: Allow
+  #           Principal:
+  #             AWS: arn:aws:lambda:${aws:region}:${aws:accountId}:function:${self:custom.App_Name}
+  #           Action:
+  #             - sns:Publish
+  #             - sns:Subscribe
+  #           Resource: arn:aws:sns:${aws:region}:${aws:accountId}:${self:custom.TopicName}
+  #     Topics:
+  #       - arn:aws:sns:${aws:region}:${aws:accountId}:${self:custom.TopicName}
+
+  # Parameters:
+  #   Type: String
+  #   Default: NA
+  #   Description: My EXP parameter
+  #   ParameterKey: myDates
+  #   ParameterValue: NA
+  #   UsePreviousValue: true
+
+  # EventInvokeConfig:
+  #   Type: AWS::Lambda::EventInvokeConfig
+  #   Properties:
+  #     FunctionName: ${self:custom.App_Name}
+  #     Qualifier: "$LATEST"
+  #     MaximumEventAgeInSeconds: 600
+  #     MaximumRetryAttempts: 1
+  #     DestinationConfig:
+  #       OnFailure:
+  #         Destination: arn:aws:sns:${aws:region}:${aws:accountId}:failureTopic

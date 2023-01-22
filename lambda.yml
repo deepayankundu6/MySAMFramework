@@ -1,0 +1,38 @@
+# ErrorHandler:
+#   handler: failure.hello
+#   runtime: nodejs18.x
+#   name: ${self:custom.App_Name}-failure
+#   memorySize: 256
+#   timeout: 300
+#   logRetentionInDays: 30
+#   iamRoleStatementsName: ErrorRole
+#   iamRoleStatements:
+#     - Effect: Allow
+#       Action:
+#         - sns:Publish
+#       Resource:
+#         - arn:aws:sns:${aws:region}:${aws:accountId}:${self:custom.TopicName}
+
+hello:
+  handler: handler.hello
+  runtime: nodejs18.x
+  name: ${self:custom.App_Name}
+  memorySize: 256
+  timeout: 300
+  logRetentionInDays: 30
+  destinations:
+    onFailure: arn:aws:sns:${aws:region}:${aws:accountId}:${self:custom.TopicName}
+  iamRoleStatementsName: MyRole
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ssm:GetParameter
+        - ssm:PutParameter
+      Resource:
+        - arn:aws:ssm:${aws:region}:${aws:accountId}:parameter/Deep-PAR/*
+    - Effect: Allow
+      Action:
+        - sns:Publish
+        - sns:Subscribe
+      Resource:
+        - arn:aws:sns:${aws:region}:${aws:accountId}:${self:custom.TopicName}
