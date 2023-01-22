@@ -3,7 +3,7 @@ on:
   workflow_call:
 
 jobs:
-  deploy:
+  deploy-jobs:
     name: Deploy the app
     runs-on: ubuntu-latest
     steps:
