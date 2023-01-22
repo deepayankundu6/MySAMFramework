@@ -22,7 +22,7 @@ module.exports.hello = async (event) => {
     let savedParam = await ssm.getParameter({ Name: "/Deep-PAR/lse-mp" }).promise();
     console.log(savedParam)
 
-    // throw new Error("This is a intended failure");
+    throw new Error("This is a intended failure");
     console.log("Function Executed successfully");
     return {
       statusCode: 200,
