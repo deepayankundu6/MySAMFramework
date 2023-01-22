@@ -1,0 +1,21 @@
+name: Build and Delpoy app
+run-name: ${{ github.actor }}
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - run: echo "build started"
+      - run: npm i
+      - run: echo " dependency install completed"
+      - name: deploy
+        run: |
+          echo "Configuring serverless"
+          serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY }}--secret ${{ secrets.AWS_KEY_SECRET }}
+      - run: echo "deploying using serverless."
+      - run: |
+          sls deploy --force
+          echo "deployment completed successsfully"
