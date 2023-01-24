@@ -19,7 +19,6 @@ module.exports.hello = async (event) => {
     const ssm = new awsSdk.SSM();
     let previousSavedParam = await ssm.getParameter({ Name: "/Deep-PAR/lse-mp" }).promise();
     console.log(previousSavedParam)
-    throw new Error("This is a intended failure");
     await ssm.putParameter(params).promise();
     console.log("Saved the parameter in param store")
     let savedParam = await ssm.getParameter({ Name: "/Deep-PAR/lse-mp" }).promise();
