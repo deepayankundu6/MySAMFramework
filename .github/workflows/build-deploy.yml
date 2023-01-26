@@ -22,6 +22,5 @@ jobs:
           serverless config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY }} --secret ${{ secrets.AWS_KEY_SECRET }}
       - run: echo "deploying using serverless."
       - run: |
-          serverless login
           sls deploy --force
           echo "deployment completed successsfully"
